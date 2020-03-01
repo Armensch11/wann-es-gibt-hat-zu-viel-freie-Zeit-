@@ -156,3 +156,21 @@ return resArr;
 let numbers = [10,50,30,60,40,50,60,10];
 let result = sumsToTarget(numbers, 50);
 console.log(result);
+
+
+
+
+// ankap funkcia array lcnogh
+function fillthearray(from, howmany){
+    let resArray = []; 
+    for(let i = from; ;i++) {
+        resArray.push(i);
+        if (resArray.length > howmany) {
+            resArray.pop(); 
+            break;
+        }
+    }return resArray;
+}
+
+let res = fillthearray(5,20);
+console.log(res);
