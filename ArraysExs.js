@@ -46,38 +46,20 @@ console.log(newArr);
 
 /// flatten the nested array
 
-function flatter(arr) {
-    let flatArr = [];
-    for (let i = 0; i < arr.length; i++) {
-        if (!Array.isArray(arr[i])) {
-            flatArr.push(arr[i]);
-        } else {
-             let nestArr = makeItFlat(arr[i]);
-             for ( let j = 0; j < nestArr.length; j++) {
-
-                    flatArr.push(nestArr[j]);
-                }
-        }     
-    }      
-
-    return flatArr;
+function makeFlat(nestedArr) {
+    let workArray = nestedArr.slice(0);
+    let resultArray=[];
+    for (let i = 0; i < workArray.length; i++) {
+            if (Array.isArray(workArray[i])) {
+                        for (let k =0; k < workArray[i].length; k++) {
+                        resultArray.push(workArray[i][k]);
+                        } 
+            } else { 
+                        resultArray.push(workArray[i]);
+                    }
+    } return resultArray;
 }
 
-function makeItFlat(arr){
-    let flat = arr.slice(0);
-    //let count = 0;
-    while (Array.isArray(flat)) {
-        if(Array.isArray(flat[0])){
-        flat = flat[0].slice(0);
-        //count++;
-        } else return flat;
-    }
-    //console.log(count);
-    return flat;
-}
-
-//let check = makeItFlat([[[[[[[[[[[5,69,78]]]]]]]]]]]);
-//console.log(check);
 
 function checkForNested (arr) {
     let nestedExist = false;
@@ -89,10 +71,10 @@ function checkForNested (arr) {
 }
 
 
-let someArr=[1,[2,5],[3,[[4,5,10,15,[2,6,8],9]]],[5,6]];
-let flat = flatter(someArr);
+let someArr=[1,[2,5],[[24,26],3,[[4,5,10,15,[2,6,8],9]]],[5,6]];
+let flat = makeFlat(someArr);
 while (checkForNested(flat)) {
-    flat = flatter(flat);
+    flat = makeFlat(flat);
 } 
 console.log(flat);
 
