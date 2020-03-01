@@ -133,3 +133,26 @@ unitarr = sortAscending(unitarr);
 console.log(unitarr);
 
 
+
+
+// indexes of the elements which sum satisfies the specified target
+function sumsToTarget (arr, target){
+ 
+    let resArr = [];
+    
+    for (let i = 0; i < arr.length; i++) {
+       
+        for (let j = 0; j < arr.length-1; j++) {
+            if ((arr.indexOf(target-arr[i]) !== -1) && (arr.indexOf(target-arr[i])) !== i){
+            resArr.push(i);
+            resArr.push (arr.indexOf(target-arr[i]));
+            return resArr;
+            }
+    }
+}
+return resArr;
+}
+
+let numbers = [10,50,30,60,40,50,60,10];
+let result = sumsToTarget(numbers, 50);
+console.log(result);
