@@ -172,3 +172,24 @@ return(faktorial);
 
 let num=factorial(4);
 console.log(num);
+
+
+
+function x_drawer (num,sym) {
+    let row = '';
+    let resrow = '';
+    for (let i = 0; i < num+1; i++) {
+        row = '';
+        for (let j=0; j <= 2*num - i; j++) {
+            if (j===i || j === num - i) {
+                row+= sym ;
+            } else { row+= ' ';}
+        }
+        row +='\n';
+        resrow += row;
+    } return resrow;
+}
+let draw = x_drawer(20,'%');
+let drawnew= draw;
+
+console.log(drawnew);
