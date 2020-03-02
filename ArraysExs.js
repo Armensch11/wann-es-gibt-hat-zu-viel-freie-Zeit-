@@ -156,3 +156,19 @@ function fillthearray(from, howmany){
 
 let res = fillthearray(5,20);
 console.log(res);
+
+
+
+
+// faktorial count
+function factorial (number){
+    let faktorial = 1;
+while ( number-1!==0 ){
+    faktorial*=number;
+    number=(number-1);
+    }
+return(faktorial);
+}
+
+let num=factorial(4);
+console.log(num);
