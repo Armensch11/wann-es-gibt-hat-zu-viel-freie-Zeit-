@@ -212,3 +212,27 @@ function deleteNth(arr, n) {
 	}
 	return arr;
 }
+// esel er lavy :)
+function digPow(num, p) {
+	let k;
+	let n = num;
+	let newRow = [];
+	for (; n > 0; ) {
+		k = n % 10;
+		n = (n - k) / 10;
+		newRow.unshift(k);
+	}
+	//console.log(newRow);
+	let sum = 0;
+	for (let i = 0; i < newRow.length; i++) {
+		sum += Math.pow(newRow[i], p + i);
+	}
+	if (Number.isInteger(sum / num)) {
+		return sum / num;
+	} else {
+		return -1;
+	}
+}
+digPow(46288, 3);
+
+function findOutlier(integers) {}
