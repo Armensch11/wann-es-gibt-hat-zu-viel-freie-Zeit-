@@ -233,6 +233,38 @@ function digPow(num, p) {
 		return -1;
 	}
 }
-digPow(46288, 3);
 
-function findOutlier(integers) {}
+// find the one odd in array of evens,and vice versa
+function findOutlier(integers) {
+	let i = 0;
+	if (Math.abs(integers[i] % 2) + Math.abs(integers[i + 1] % 2) + Math.abs(integers[i + 2] % 2) < 2) {
+		for (let i = 0; i < integers.length; i++) {
+			if (integers[i] % 2 !== 0) {
+				return integers[i];
+			}
+		}
+	} else {
+		for (let i = 0; i < integers.length; i++) {
+			if (integers[i] % 2 === 0) {
+				return integers[i];
+			}
+		}
+	}
+}
+
+// triBonacci
+
+function tribonacci(signature, n) {
+	let triBonacci = [];
+	if (n == 0) {
+		return triBonacci;
+	}
+	for (let i = 0; i < n; i++) {
+		if (signature[i] != undefined) {
+			triBonacci.push(signature[i]);
+		} else {
+			triBonacci.push(triBonacci[i - 1] + triBonacci[i - 2] + triBonacci[i - 3]);
+		}
+	}
+	return triBonacci;
+}
