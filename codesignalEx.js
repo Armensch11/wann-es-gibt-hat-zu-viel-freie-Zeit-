@@ -268,3 +268,391 @@ function tribonacci(signature, n) {
 	}
 	return triBonacci;
 }
+
+//number in expanded form
+
+function expandedForm(num) {
+	let k;
+	let arr = [];
+	for (; num > 0; ) {
+		k = num % 10;
+		num = (num - k) / 10;
+		arr.unshift(k);
+	}
+
+	let newArr = [];
+	for (let i = arr.length - 1; i >= 0; i--) {
+		if (arr[arr.length - 1 - i] === 0) {
+			continue;
+		}
+		newArr.push(arr[arr.length - 1 - i] * 10 ** i);
+	}
+	let str;
+	str = newArr.join(' + ');
+
+	return str;
+}
+
+//#region  Hashtag gener for string
+function generateHashtag(str) {
+	let modifiedStr = '';
+	if (!!str) {
+		for (let i = 0; i < str.length; i++) {
+			if (str[i] !== ' ') {
+				if (i > 0 && str[i - 1] === ' ') {
+					modifiedStr += str[i].toUpperCase();
+					continue;
+				} else if (i === 0) {
+					modifiedStr += str[i].toUpperCase();
+					continue;
+				} else {
+					modifiedStr += str[i];
+					console.log(modifiedStr);
+				}
+			}
+		}
+	} else {
+		return false;
+	}
+	let finalStr = '#';
+	if (modifiedStr.length < 140 && +modifiedStr !== 0) {
+		finalStr += modifiedStr;
+
+		return finalStr;
+	} else {
+		return false;
+	}
+}
+//#endregion
+
+// password validator
+function validate(password) {}
+
+function sorted(checkArr) {
+	let arr = checkArr.slice(0);
+	let nochange = false;
+	let valueHolder;
+	let j = 0;
+	while (!nochange == true) {
+		nochange = true;
+		for (let i = 0; i < arr.length; i++) {
+			if (arr[j] <= arr[i]) {
+				nochange = false;
+				valueHolder = arr[i];
+				arr[i] = arr[j];
+				arr[j] = valueHolder;
+			}
+		}
+		j++;
+	}
+
+	return arr;
+}
+
+function almostIncreasingSequence(sequence) {
+	let countEqual = 0;
+	let anotherEqual = 0;
+	let checkArr = sequence.slice(0);
+	for (let i = 0; i < checkArr.length; i++) {
+		countEqual = 0;
+
+		for (let j = 0; j < checkArr.length; j++) {
+			if (i !== j && checkArr[i] === checkArr[j]) {
+				countEqual++;
+				anotherEqual++;
+			}
+			if (countEqual > 1) {
+				return false;
+			}
+			if (anotherEqual > 1) {
+				return false;
+			}
+		}
+	}
+	if (countEqual <= 1) {
+		for (let i = 0; i < checkArr.length; i++) {
+			if (checkWithItsSortedDuplicate(checkArr[i], checkArr) === true) {
+				return true;
+			}
+		}
+		return false;
+	}
+}
+
+function checkWithItsSortedDuplicate(element, arr) {
+	let tempHolder = sorted(arr.slice(0));
+	let tempOriginal = arr.slice(0);
+	let i = tempOriginal.indexOf(element);
+	let k = tempHolder.indexOf(element);
+
+	tempOriginal.splice(i, 1);
+	tempHolder.splice(k, 1);
+
+	if (tempOriginal.toString() === tempHolder.toString()) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+// lianna solution
+function almostIncreasingSequence(sequence) {
+	let resultArray;
+	let generalResult = false;
+	for (let i = 0; i < sequence.length; i++) {
+		let result = true;
+
+		resultArray = sequence.slice(0);
+		resultArray.splice(i, 1);
+		for (let j = 0; j < resultArray.length; j++) {
+			if (resultArray[j + 1]) {
+				if (resultArray[j] >= resultArray[j + 1]) {
+					result = false;
+					break;
+				}
+			}
+		}
+
+		if (result === true) {
+			generalResult = result;
+			break;
+		}
+	}
+	return generalResult;
+}
+//codesignal 8
+function matrixElementsSum(matrix) {
+	let sum = 0;
+	for (let j = 0; j < matrix[0].length; j++) {
+		for (let i = 0; i < matrix.length; i++) {
+			if (matrix[i][j] === 0) {
+				break;
+			} else {
+				sum += matrix[i][j];
+			}
+		}
+	}
+	return sum;
+}
+//codesignal 9
+function allLongestStrings(inputArray) {
+	let newArr = [];
+	let max = 0;
+	for (let i = 0; i < inputArray.length; i++) {
+		if (inputArray[i].length > max) {
+			max = inputArray[i].length;
+		}
+	}
+	for (let i = 0; i < inputArray.length; i++) {
+		if (inputArray[i].length === max) {
+			newArr.push(inputArray[i]);
+		}
+	}
+	return newArr;
+}
+// codesignal 10
+
+function commonCharacterCount(s1, s2) {
+	let count = 0;
+	let s1Arr = s1.split('');
+	let s2Arr = s2.split('');
+
+	for (let i = 0; i < s1Arr.length; i++) {
+		if (s2Arr.indexOf(s1Arr[i]) >= 0) {
+			count++;
+			let k = s2Arr.indexOf(s1Arr[i]);
+
+			s1Arr.splice(i, 1);
+			s2Arr.splice(k, 1);
+
+			i--;
+		}
+	}
+	return count;
+}
+
+//lucky number
+function isLucky(n) {
+	let sumStart = 0;
+	let sumEnd = 0;
+	let strN = String(n);
+	for (let i = 0; i < Math.ceil(strN.length / 2); i++) {
+		//debugger;
+		sumStart += +strN[i];
+		sumEnd += +strN[strN.length - 1 - i];
+		console.log(sumStart);
+		console.log(sumEnd);
+	}
+	if (sumEnd === sumStart) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+// people among trees
+function sortByHeight(a) {
+	let valueHolder;
+	for (let i = 0; i < a.length; i++) {
+		if (a[i] === -1) {
+			continue;
+		} else {
+			for (let j = 0; j < a.length; j++) {
+				if (a[j] === -1) {
+					continue;
+				} else if (a[i] < a[j]) {
+					valueHolder = a[j];
+					a[j] = a[i];
+					a[i] = valueHolder;
+				}
+			}
+		}
+	}
+	return a;
+}
+
+//reverse strings inside parentesis
+
+function reverseTheLastNestedParentesis(str) {
+	let strArr = str.split('');
+
+	let parEnd = strArr.indexOf(')');
+	strArr.splice(parEnd, strArr.length - parEnd);
+	let parStart = strArr.lastIndexOf('(');
+	let neededPart = strArr.splice(parStart + 1, strArr.length - parStart);
+	let tempArr = [];
+	for (let i = neededPart.length - 1; i >= 0; i--) {
+		tempArr.push(neededPart[i]);
+	}
+	let oldPart = '(' + neededPart.join('') + ')';
+	let newPart = tempArr.join('');
+	str = str.replace(oldPart, newPart);
+	return str;
+}
+
+function reverseInParentheses(inputString) {
+	while (inputString.indexOf(')') > 0) {
+		inputString = reverseTheLastNestedParentesis(inputString);
+	}
+
+	return inputString;
+}
+
+// first and second division
+
+function alternatingSums(a) {
+	let sum1 = 0;
+	let sum2 = 0;
+	for (let i = 0; i < a.length; i++) {
+		if (i % 2 === 0) {
+			sum1 += a[i];
+		} else {
+			sum2 += a[i];
+		}
+	}
+	let newArr = [];
+	newArr.push(sum1);
+	newArr.push(sum2);
+	return newArr;
+}
+
+// add border to matrix
+// shat lavn er
+
+function addBorder(picture) {
+	let tempArr = [];
+
+	for (let i = 0; i < picture.length + 2; i++) {
+		let tempRow = [];
+		for (j = 0; j < picture[0].length + 2; j++) {
+			if (i === 0 || i === picture.length + 2 - 1 || j === 0 || j === picture[0].length + 2 - 1) {
+				tempRow.push('*');
+			} else {
+				tempRow.push(picture[i - 1][j - 1]);
+			}
+		}
+		tempArr.push(tempRow.join(''));
+	}
+	return tempArr;
+}
+let check = addBorder([ 'Irena', 'Armen' ]);
+console.log(check);
+
+//similarity of arrays
+function areSimilar(a, b) {
+	let valueHolder;
+	for (let i = 0; i < a.length; i++) {
+		if (a[i] !== b[i]) {
+			k = b.indexOf(a[i], i + 1);
+			if (k > 0) {
+				if (a[k] !== b[i]) {
+					return false;
+				} else {
+					valueHolder = b[k];
+					b[k] = b[i];
+					b[i] = valueHolder;
+					if (a.join('') === b.join('')) {
+						return true;
+					} else {
+						return false;
+					}
+				}
+			} else {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+//array similarity check alternative way
+
+function areSimilar(a, b) {
+	let strA = a.join('');
+	let strB = b.join('');
+	if (strA === strB) {
+		return true;
+	} else {
+	}
+}
+
+//remove zeros from a number
+
+function removeZeros(number) {
+	let digitArr = [];
+	let count = 0;
+	while (number > 0) {
+		k = number % 10;
+		number = (number - k) / 10;
+		if (k === 0 && count < 2) {
+			digitArr.unshift(k);
+			count++;
+		} else if (k !== 0) {
+			digitArr.unshift(k);
+		}
+	}
+	/*let finalArr = [];
+
+	if (digitArr.indexOf(0) !== -1 && digitArr.indexOf(0) !== digitArr.lastIndexOf(0)) {
+		for (let i = 0; i < digitArr.length; i++) {
+			if (digitArr[i] !== 0 || i === digitArr.lastIndexOf(0)) {
+				finalArr.push(digitArr[i]);
+			}
+		}
+	} else return 'nothing to remove';
+*/
+	return digitArr.join('');
+}
+
+// minimum steps to get array strictly increasing
+// very nice solution
+function arrayChange(inputArray) {
+	let count = 0;
+	for (let i = 1; i < inputArray.length; i++) {
+		while (inputArray[i] <= inputArray[i - 1]) {
+			inputArray[i]++;
+			count++;
+		}
+	}
+	return count;
+}
