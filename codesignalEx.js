@@ -575,30 +575,25 @@ function addBorder(picture) {
 	}
 	return tempArr;
 }
-let check = addBorder([ 'Irena', 'Armen' ]);
-console.log(check);
 
 //similarity of arrays
 function areSimilar(a, b) {
 	let valueHolder;
 	for (let i = 0; i < a.length; i++) {
 		if (a[i] !== b[i]) {
-			k = b.indexOf(a[i], i + 1);
-			if (k > 0) {
-				if (a[k] !== b[i]) {
-					return false;
-				} else {
-					valueHolder = b[k];
-					b[k] = b[i];
-					b[i] = valueHolder;
-					if (a.join('') === b.join('')) {
-						return true;
-					} else {
-						return false;
-					}
-				}
-			} else {
+			k = b.indexOf(a[i]);
+
+			if (a[k] !== b[i]) {
 				return false;
+			} else {
+				valueHolder = b[k];
+				b[k] = b[i];
+				b[i] = valueHolder;
+				if (a.join('') === b.join('')) {
+					return true;
+				} else {
+					return false;
+				}
 			}
 		}
 	}
@@ -608,11 +603,21 @@ function areSimilar(a, b) {
 //array similarity check alternative way
 
 function areSimilar(a, b) {
-	let strA = a.join('');
-	let strB = b.join('');
-	if (strA === strB) {
+	if (a.toString() === b.toString()) {
+		return true;
+	}
+	let newA = [];
+	let newB = [];
+	for (let i = 0; i < a.length; i++) {
+		if (a[i] !== b[i]) {
+			newA.push(a[i]);
+			newB.push(b[i]);
+		}
+	}
+	if (newA.length === 2 && newA.reverse().toString() === newB.toString()) {
 		return true;
 	} else {
+		return false;
 	}
 }
 
@@ -655,4 +660,167 @@ function arrayChange(inputArray) {
 		}
 	}
 	return count;
+}
+
+// string to rearrange as palindrome
+//eli vaty cher yndameny petq er zujgery hashvel, u vor menak mi hat kent lini
+
+function palindromeRearranging(inputString) {
+	let count;
+	let oddcount = 0;
+	let tempArr = inputString.split('');
+	for (let i = 0; i < tempArr.length; i++) {
+		count = 1;
+		for (let j = 0; j < tempArr.length; j++) {
+			if (i !== j) {
+				if (tempArr[i] === tempArr[j]) {
+					count++;
+					tempArr.splice(j, 1);
+					j--;
+				}
+			}
+		}
+		if (count % 2 !== 0) {
+			oddcount++;
+		}
+	}
+	if (oddcount > 1) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+//left right arms check
+function areEquallyStrong(yourLeft, yourRight, friendsLeft, friendsRight) {}
+
+// maximum adjacent difference
+function arrayMaximalAdjacentDifference(inputArray) {
+	let max = -Infinity;
+	let diff;
+	for (let i = 1; i < inputArray.length; i++) {
+		diff = inputArray[i] - inputArray[i - 1];
+		diff = Math.abs(diff);
+		if (diff > max) {
+			max = diff;
+		}
+	}
+	return max;
+}
+
+// Ip4 string check
+// mi qich shat en IF-ery stacvel
+function isIPv4Address(inputString) {
+	let checkArr = inputString.split('.');
+	if (checkArr.length !== 4) {
+		return false;
+	}
+	for (let i = 0; i < checkArr.length; i++) {
+		if (isNaN(+checkArr[i]) || +checkArr[i] < 0 || +checkArr[i] >= 256) {
+			return false;
+		}
+		if (+checkArr[i] === 0) {
+			if (checkArr[i].length === 1) {
+				continue;
+			} else {
+				return false;
+			}
+		}
+		if (checkArr[i] !== String(+checkArr[i])) {
+			return false;
+		}
+	}
+	return true;
+}
+
+// avoid obstacles, or minimum length
+//ajsinq minimal tivy vori vra bolor array-i tvery  mnacordoven bazanvum
+function avoidObstacles(inputArray) {
+	let nochange = false;
+	while (!nochange) {
+		let valueHolder;
+		nochange = true;
+		for (let i = 0; i < inputArray.length; i++) {
+			if (inputArray[i] > inputArray[i + 1]) {
+				valueHolder = inputArray[i + 1];
+				inputArray[i + 1] = inputArray[i];
+				inputArray[i] = valueHolder;
+				nochange = false;
+			}
+		}
+	}
+	loop1: for (let i = 2; i < inputArray[inputArray.length - 1]; i++) {
+		for (let j = 0; j < inputArray.length; j++) {
+			if (inputArray[j] % i === 0) {
+				continue loop1;
+			}
+		}
+		return i;
+	}
+	return inputArray[inputArray.length - 1] + 1;
+}
+
+// image blur matrix
+function threeToThreeSum(row, column, array) {
+	let sum = 0;
+	for (i = row - 1; i <= row + 1; i++) {
+		for (j = column - 1; j <= column + 1; j++) {
+			sum += array[i][j];
+		}
+	}
+	return sum;
+}
+function boxBlur(image) {
+	let finalArr = [];
+	for (let i = 1; i < image.length - 1; i++) {
+		let someArr = [];
+		let res;
+		for (let j = 1; j < image[i].length - 1; j++) {
+			res = Math.floor(threeToThreeSum(i, j, image) / 9);
+			someArr.push(res);
+		}
+		finalArr.push(someArr);
+	}
+	return finalArr;
+}
+
+//minesweeper hetaqrqira
+
+function minesweeper(matrix) {
+	let resArr = [];
+	for (let i = 0; i < matrix.length; i++) {
+		let tempArr = [];
+		for (let j = 0; j < matrix[i].length; j++) {
+			tempArr.push(matrix[i][j]);
+		}
+		resArr.push(tempArr);
+	}
+
+	for (let i = 0; i < resArr.length; i++) {
+		for (let j = 0; j < resArr[0].length; j++) {
+			if (resArr[i][j] === false) {
+				resArr[i][j] = 0;
+			}
+			if (matrix[i][j] === true) {
+				let count = -1;
+
+				for (let k = i - 1; k <= i + 1; k++) {
+					for (let l = j - 1; l <= j + 1; l++) {
+						if (k >= 0 && l >= 0 && k < matrix.length && l < matrix[i].length) {
+							if (matrix[k][l] === true) {
+								count++;
+							}
+							if (matrix[k][l] === false) {
+								resArr[k][l] += 1;
+							}
+						}
+					}
+				}
+				console.log(count);
+				resArr[i][j] = count;
+			}
+		}
+	}
+
+	return resArr;
 }
