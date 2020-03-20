@@ -824,3 +824,297 @@ function minesweeper(matrix) {
 
 	return resArr;
 }
+
+//replace array element
+function arrayReplace(inputArray, elemToReplace, substitutionElem) {
+	if (elemToReplace !== substitutionElem) {
+		while (inputArray.indexOf(elemToReplace) >= 0) {
+			let i = inputArray.indexOf(elemToReplace);
+			inputArray[i] = substitutionElem;
+		}
+	}
+	return inputArray;
+}
+
+//check digits for even, mane-s solution again
+//tujn lutsuma vsjotaki et n>0-y
+function evenDigitsOnly(n) {
+	let k;
+	while (n > 0) {
+		k = n % 10;
+		n = (n - k) / 10;
+		if (k % 2 !== 0) {
+			return false;
+		}
+	}
+	return true;
+}
+
+// chellange decode string
+function decodeString(s) {
+	let decArr = s.split('');
+	let k = decArr.indexOf(']');
+
+	while (k > 0) {
+		let tempArr = decArr.slice(0, k);
+		let start = tempArr.lastIndexOf('[');
+		console.log(start);
+
+		//the number ahead of brackets may be not a one digit
+		let i = 1;
+		let multiplic = [];
+		while (!isNaN(+tempArr[start - i]) && tempArr[start - i]) {
+			multiplic.unshift(tempArr[start - i]);
+			i++;
+		}
+		let numOfTimes = +multiplic.join('');
+		console.log(numOfTimes);
+		decArr.splice(start - multiplic.length, k - start + multiplic.length + 1);
+
+		for (let i = 0; i < numOfTimes; i++) {
+			for (let j = start + 1; j < k; j++) {
+				decArr.splice(j - multiplic.length - 1, 0, tempArr[j]);
+			}
+		}
+
+		k = decArr.indexOf(']');
+	}
+	return decArr.join('');
+}
+
+// valid variable name,
+// used ascII codes for check
+function variableName(name) {
+	let count = 1;
+
+	if (
+		name.charCodeAt(0) === 95 ||
+		(name.charCodeAt(0) >= 65 && name.charCodeAt(0) <= 90) ||
+		(name.charCodeAt(0) >= 97 && name.charCodeAt(0) <= 122)
+	) {
+		for (let i = 1; i < name.length; i++) {
+			if (
+				name.charCodeAt(i) === 95 ||
+				(name.charCodeAt(i) >= 48 && name.charCodeAt(i) <= 57) ||
+				(name.charCodeAt(i) >= 65 && name.charCodeAt(i) <= 90) ||
+				(name.charCodeAt(i) >= 97 && name.charCodeAt(i) <= 122)
+			) {
+				count++;
+			}
+		}
+		if (count === name.length) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		return false;
+	}
+}
+
+// alphabetic shift to next character
+
+function alphabeticShift(inputString) {
+	let shiftedStr = '';
+	for (let i = 0; i < inputString.length; i++) {
+		let asCode = inputString.charCodeAt(i);
+		if (asCode === 122) {
+			shiftedStr += 'a';
+		} else {
+			shiftedStr += String.fromCharCode(asCode + 1);
+		}
+	}
+	return shiftedStr;
+}
+
+//chess field colors
+
+function chessBoardCellColor(cell1, cell2) {
+	let checkArr = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' ];
+	let columnCell1 = checkArr.indexOf(cell1[0]) + 1;
+	let columnCell2 = checkArr.indexOf(cell2[0]) + 1;
+	//mez petka miajn asel te nujn gujni dashteri vra en te voch, gujny imanaly partadir chi
+
+	//mi hat shaxmati dasht sarqem 1 u 0 nerov
+	let matrix = [];
+	for (let i = 8; i > 0; i--) {
+		let rowArray = [];
+		for (let j = 1; j <= 8; j++) {
+			if (i % 2 === 0 && j % 2 !== 0) {
+				rowArray.push(0);
+			} else if (i % 2 !== 0 && j % 2 === 0) {
+				rowArray.push(0);
+			} else {
+				rowArray.push(1);
+			}
+		}
+		matrix.push(rowArray);
+	}
+	if (matrix[+cell1[1] - 1][columnCell1 - 1] === matrix[+cell2[1] - 1][columnCell2 - 1]) {
+		return true;
+	} else {
+		return false;
+	}
+}
+//stic baner 30 u 31
+function circleOfNumbers(n, firstNumber) {
+	if (firstNumber > n / 2) {
+		return firstNumber - n / 2;
+	} else if (firstNumber < n / 2) {
+		return n / 2 + firstNumber;
+	}
+	return 0;
+}
+function depositProfit(deposit, rate, threshold) {
+	let years = 0;
+	while (deposit < threshold) {
+		deposit += deposit * rate / 100;
+		years++;
+	}
+	return years;
+}
+
+// the smallest distance
+function absoluteValuesSumMinimization(a) {
+	let indexHolder;
+	let minimum = +Infinity;
+	for (let i = 0; i < a.length; i++) {
+		let sum = 0;
+		for (let j = 0; j < a.length; j++) {
+			sum += Math.abs(a[j] - a[i]);
+		}
+		if (sum < minimum) {
+			minimum = sum;
+			indexHolder = i;
+		}
+	}
+	return a[indexHolder];
+}
+
+// stic xndir
+function extractEachKth(inputArray, k) {
+	let index = i * k - i;
+	let i = 1;
+	while (!isNaN(inputArray[index])) {
+		inputArray.splice(index, 1);
+		i++;
+		index = i * k - i;
+	}
+	return inputArray;
+}
+
+//k consecutive element sum
+//lavn er
+function arrayMaxConsecutiveSum(inputArray, k) {
+	let max = -Infinity;
+	let sum;
+	let i = 0;
+	while (i + k <= inputArray.length) {
+		sum = 0;
+		for (let j = i; j < i + k; j++) {
+			sum += inputArray[j];
+		}
+		i++;
+		if (sum > max) {
+			max = sum;
+		}
+	}
+	return max;
+}
+
+// up and down of the plant
+function growingPlant(upSpeed, downSpeed, desiredHeight) {
+	let height = 0;
+	let dayCount = 0;
+	while (height < desiredHeight) {
+		height += upSpeed;
+		dayCount++;
+		if (height >= desiredHeight) {
+			break;
+		}
+		height -= downSpeed;
+	}
+	return dayCount;
+}
+
+// vaty cher bajc eli if-ery shat eghav
+function knapsackLight(value1, weight1, value2, weight2, maxW) {
+	if (weight1 + weight2 <= maxW) {
+		return value1 + value2;
+	}
+	if (weight1 <= maxW) {
+		if (weight2 <= maxW) {
+			if (value1 >= value2) {
+				return value1;
+			} else {
+				return value2;
+			}
+		} else {
+			return value1;
+		}
+	} else if (weight2 <= maxW) {
+		return value2;
+	} else {
+		return 0;
+	}
+}
+
+// prefix-y lriv apushutyuner er, es aveli bard depqi hamar em lutsel,
+//parzvuma vor prefixy yndameny arajin indexic sksoghy petqa lini
+function longestDigitsPrefix(inputString) {
+	let maxArr = [ '' ];
+	for (let i = 0; i < inputString.length; i++) {
+		if (!isNaN(+inputString[i]) && inputString[i + 1] && isNaN(+inputString[i + 1])) {
+			let tempArr = [];
+			tempArr.unshift(inputString[i]);
+			let k = 1;
+
+			while (!isNaN(+inputString[i - k]) && inputString[i - k]) {
+				tempArr.unshift(inputString[i - k]);
+				k++;
+			}
+			if (tempArr.join('').length > maxArr[0].length) {
+				maxArr.shift();
+				maxArr.unshift(tempArr.join(''));
+			}
+		}
+	}
+	return maxArr;
+}
+//arajin indexic sksogh tver
+function longestDigitsPrefix(inputString) {
+	let maxArr = [ '' ];
+	if (!isNaN(+inputString[0]) && inputString[0] !== ' ') {
+		let tempArr = [];
+		let i = 1;
+		tempArr.push(inputString[0]);
+		while (!isNaN(+inputString[i])) {
+			tempArr.push(inputString[i]);
+			i++;
+		}
+		if (tempArr.join('').length > maxArr[0].length) {
+			maxArr.shift();
+			maxArr.unshift(tempArr.join(''));
+		}
+	}
+
+	return maxArr.toString();
+}
+
+//digit degree voncor eli em arel sranic
+
+function digitDegree(n) {
+	let sum;
+	let degree = 0;
+	while (n / 10 >= 1) {
+		degree++;
+		sum = 0;
+		while (n > 0) {
+			k = n % 10;
+			sum += k;
+			n = (n - k) / 10;
+		}
+		n = sum;
+	}
+	return degree;
+}
